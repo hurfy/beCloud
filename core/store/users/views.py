@@ -1,9 +1,10 @@
-from typing                     import Any
-from rest_framework             import status
-from rest_framework.views       import APIView
-from rest_framework.response    import Response
-from rest_framework.permissions import IsAuthenticated
-from .serializers               import UserProfileSerializer
+from typing                      import Any
+from rest_framework              import status
+from rest_framework.views        import APIView
+from rest_framework.response     import Response
+from rest_framework.permissions  import IsAuthenticated
+from django.contrib.auth.hashers import make_password
+from .serializers                import UserProfileSerializer
 
 
 class UserProfileView(APIView):
@@ -31,6 +32,10 @@ class UserCreateView(APIView):
         serializer = UserProfileSerializer(data=request.data)
 
         if serializer.is_valid():
+            password        = request.data.get('password')
+            hashed_password = make_password(password)
+
+            serializer.validated_data['password'] = hashed_password
             serializer.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
