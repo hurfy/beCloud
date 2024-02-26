@@ -45,11 +45,28 @@ docker build -t test .
 docker run -d -p 80:80 test
 ```
 
-Запустите Django-приложение:
+Создайте миграции в Django-приложении:
 ```shell
 cd core/store
+python manage.py makemigrations
+python manage.py migrate
+```
+
+Запустите Django-приложение:
+```shell
 python manage.py runserver
 ```
+
+Создайте пользователя, отправив POST запрос по адресу `http://127.0.0.1:8000/user/create/`
+```json
+{
+    "username": "test",
+    "password": "test",
+    "email": "test@test.com"
+}
+```
+
+Получите JWT токен, перейдя по следующему адресу `http://127.0.0.1:8000/api/token/`
 
 # Описание
 
