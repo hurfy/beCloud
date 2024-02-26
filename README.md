@@ -23,6 +23,12 @@ gunicorn                      ==21.2.0
 git clone git@github.com:hurfy/beCloud.git
 ```
 
+Создайте и активируйте виртуальное окружение:
+```shell
+python -m venv venv
+venv\Scripts\activate
+```
+
 Установите все зависимости:
 ```shell
 pip install -r requirements.txt
